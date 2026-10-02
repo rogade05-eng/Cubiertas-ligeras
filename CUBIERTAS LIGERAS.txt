@@ -1,0 +1,2024 @@
+# CONTRATO DE PROGRAMACIÓN
+
+## SOFTWARE DE CÁLCULO, DISEÑO Y CUANTIFICACIÓN DE CUBIERTAS LIGERAS Y CERCHAS
+
+### 1. IDENTIFICACIÓN DEL PROYECTO
+
+**Nombre provisional:** CUBIERTA PRO
+
+**Tipo de aplicación:** Software profesional de escritorio para cálculo, predimensionamiento, diseño geométrico, análisis, cuantificación y documentación técnica de cubiertas ligeras y sus estructuras portantes.
+
+**Proyecto:** Independiente de ARQ GEN.
+
+**Tecnología principal:**
+
+* Rust.
+* Tauri.
+* HTML5.
+* CSS3.
+* JavaScript/TypeScript.
+* Base de datos local.
+* Motor matemático y estructural desarrollado principalmente en Rust.
+
+**Plataforma principal:**
+
+* Windows 10/11 de 64 bits.
+
+**Plataformas secundarias previstas:**
+
+* Linux.
+* Posible macOS en una fase posterior.
+
+**Funcionamiento:** 100 % local y offline.
+
+**Dependencia de Internet:** Ninguna durante la ejecución del programa.
+
+**IA:** No necesaria para el funcionamiento del programa.
+
+---
+
+# 2. OBJETIVO GENERAL
+
+Desarrollar un software profesional capaz de calcular, predimensionar, diseñar y cuantificar cubiertas ligeras de diferentes configuraciones geométricas y estructurales, permitiendo al usuario definir una cubierta desde sus dimensiones, cargas, materiales, perfiles y condiciones de apoyo, obteniendo como resultado:
+
+* Geometría completa.
+* Tipo de cubierta.
+* Tipo de cercha.
+* Dimensiones de la cercha.
+* Pendientes.
+* Separación entre cerchas.
+* Correas.
+* Arriostramientos.
+* Perfiles estructurales.
+* Longitudes de elementos.
+* Cantidades de materiales.
+* Tornillería.
+* Soldadura.
+* Placas y accesorios.
+* Cubierta.
+* Impermeabilización cuando corresponda.
+* Canalones.
+* Bajantes.
+* Elementos auxiliares.
+* Peso estimado.
+* Cargas.
+* Reacciones.
+* Esfuerzos.
+* Comprobaciones estructurales.
+* Presupuesto cuantitativo.
+* Planos y esquemas.
+* Memoria técnica.
+
+El programa deberá permitir pasar de:
+
+**DATOS DEL PROYECTO → GEOMETRÍA → CÁLCULO → ESTRUCTURA → MATERIALES → CANTIDADES → DOCUMENTACIÓN**
+
+---
+
+# 3. FILOSOFÍA DEL SOFTWARE
+
+El sistema deberá construirse con una arquitectura modular.
+
+El motor de cálculo deberá estar completamente separado de:
+
+* Interfaz gráfica.
+* Base de datos.
+* Sistema de dibujo.
+* Sistema de reportes.
+* Sistema de presupuesto.
+* Importación/exportación.
+* Configuración.
+
+Esto permitirá modificar posteriormente la interfaz sin alterar el núcleo matemático.
+
+El cálculo crítico deberá ejecutarse en Rust.
+
+Tauri será utilizado principalmente como capa de escritorio y comunicación entre la interfaz y el motor Rust.
+
+---
+
+# 4. TIPOS DE CUBIERTAS
+
+El programa deberá contemplar como mínimo:
+
+### 4.1 Cubierta a una agua
+
+Parámetros:
+
+* Luz.
+* Longitud.
+* Pendiente.
+* Altura inicial.
+* Altura final.
+* Voladizos.
+* Separación de cerchas.
+* Tipo de apoyo.
+* Tipo de cubierta.
+
+---
+
+### 4.2 Cubierta a dos aguas
+
+Deberá permitir:
+
+* Cumbrera centrada.
+* Cumbrera desplazada.
+* Pendientes iguales.
+* Pendientes diferentes.
+* Voladizos.
+* Diferentes alturas.
+* Apoyos simétricos.
+* Apoyos asimétricos.
+
+---
+
+### 4.3 Cubierta a cuatro aguas
+
+Incluyendo:
+
+* Hipotenusas.
+* Limatesas.
+* Limahoyas.
+* Cerchas principales.
+* Cerchas secundarias.
+* Elementos perimetrales.
+
+---
+
+### 4.4 Cubiertas curvas
+
+Cuando sea viable estructuralmente y según el modelo seleccionado:
+
+* Arcos.
+* Cerchas curvas.
+* Marcos curvos.
+* Radios.
+* Segmentación.
+
+---
+
+### 4.5 Cubiertas tipo diente de sierra
+
+Con:
+
+* Módulos repetitivos.
+* Diferentes pendientes.
+* Cerchas principales.
+* Cerchas secundarias.
+* Lucernarios.
+
+---
+
+### 4.6 Cubiertas de geometría personalizada
+
+El sistema deberá permitir introducir una geometría mediante:
+
+* Coordenadas.
+* Puntos.
+* Segmentos.
+* Ángulos.
+* Pendientes.
+* Longitudes.
+
+---
+
+# 5. TIPOS DE CERCHAS
+
+El programa deberá incluir una biblioteca editable de tipologías.
+
+Como mínimo:
+
+* Cercha Pratt.
+* Cercha Warren.
+* Cercha Warren modificada.
+* Cercha Howe.
+* Cercha Fink.
+* Cercha tipo W.
+* Cercha tipo N.
+* Cercha triangular.
+* Cercha trapezoidal.
+* Cercha de cordones paralelos.
+* Cercha de cubierta a dos aguas.
+* Cercha de cubierta a una pendiente.
+* Cercha con tirante.
+* Cercha con montantes.
+* Cercha con diagonales múltiples.
+
+La biblioteca deberá poder ampliarse posteriormente.
+
+---
+
+# 6. GENERADOR PARAMÉTRICO DE CERCHAS
+
+El usuario podrá definir:
+
+* Luz.
+* Altura.
+* Número de paneles.
+* Longitud de panel.
+* Pendiente.
+* Número de diagonales.
+* Número de montantes.
+* Tipo de cordón superior.
+* Tipo de cordón inferior.
+* Tipo de diagonal.
+* Tipo de montante.
+
+El programa generará automáticamente la geometría.
+
+Ejemplo:
+
+Luz = 12,00 m
+Altura = 1,50 m
+Paneles = 8
+Pendiente = determinada por geometría
+
+Resultado:
+
+* Coordenadas nodales.
+* Barras.
+* Longitudes.
+* Ángulos.
+* Nodos.
+* Apoyos.
+* Elementos estructurales.
+
+---
+
+# 7. MATERIALES ESTRUCTURALES
+
+La biblioteca deberá contemplar inicialmente:
+
+### Acero
+
+* Tubo rectangular.
+* Tubo cuadrado.
+* Tubo circular.
+* Perfil L.
+* Perfil U.
+* Canal.
+* Perfil C.
+* Perfil Z.
+* Perfil I.
+* Perfil H.
+* Platinas.
+* Ángulos.
+* Barras redondas.
+* Perfiles conformados en frío.
+
+### Madera
+
+Módulo opcional previsto para:
+
+* Madera maciza.
+* Madera laminada.
+* Secciones rectangulares.
+* Secciones circulares.
+
+### Otros materiales
+
+Arquitectura preparada para incorporar:
+
+* Aluminio.
+* Perfiles galvanizados.
+* Sistemas prefabricados.
+
+---
+
+# 8. BASE DE DATOS DE PERFILES
+
+Cada perfil deberá almacenar como mínimo:
+
+* Código.
+* Nombre.
+* Tipo.
+* Material.
+* Dimensiones.
+* Área.
+* Peso por metro.
+* Inercia X.
+* Inercia Y.
+* Módulo resistente.
+* Radio de giro.
+* Espesor.
+* Norma de referencia.
+* Fabricante opcional.
+* Estado.
+* Observaciones.
+
+El usuario deberá poder crear perfiles personalizados.
+
+---
+
+# 9. CONFIGURACIÓN DE LA CUBIERTA
+
+El programa deberá permitir introducir:
+
+* Longitud.
+* Ancho.
+* Luz.
+* Altura.
+* Pendiente.
+* Voladizo.
+* Separación entre cerchas.
+* Separación entre correas.
+* Tipo de cubierta.
+* Material de cubierta.
+* Peso propio.
+* Tipo de apoyo.
+* Número de apoyos.
+* Condiciones de borde.
+
+---
+
+# 10. MATERIALES DE CUBIERTA
+
+Biblioteca editable para:
+
+* Chapa galvanizada.
+* Chapa aluminizada.
+* Chapa prepintada.
+* Zinc.
+* Panel sándwich.
+* Panel metálico.
+* Fibrocemento.
+* Tejas ligeras.
+* Policarbonato.
+* Sistemas especiales.
+
+Cada material podrá tener:
+
+* Peso por m².
+* Espesor.
+* Ancho útil.
+* Largo comercial.
+* Solape.
+* Método de fijación.
+* Accesorios.
+* Precio opcional.
+
+---
+
+# 11. CARGAS
+
+El sistema deberá permitir definir cargas de:
+
+### Carga permanente
+
+* Peso de cubierta.
+* Peso de correas.
+* Peso de cerchas.
+* Peso de instalaciones.
+* Cielorraso.
+* Aislamiento.
+* Impermeabilización.
+* Elementos suspendidos.
+* Peso adicional definido por el usuario.
+
+### Sobrecarga de uso
+
+Campo configurable según el criterio normativo seleccionado.
+
+### Viento
+
+Sistema parametrizable para:
+
+* Presión.
+* Succión.
+* Dirección.
+* Zonas.
+* Coeficientes.
+* Área tributaria.
+
+### Otras cargas
+
+* Equipos.
+* Paneles solares.
+* Depósitos.
+* Instalaciones.
+* Cargas puntuales.
+* Cargas lineales.
+* Cargas distribuidas.
+
+---
+
+# 12. COMBINACIONES DE CARGA
+
+El motor deberá permitir definir combinaciones mediante reglas configurables.
+
+Cada combinación tendrá:
+
+* Identificador.
+* Nombre.
+* Cargas participantes.
+* Coeficientes.
+* Estado.
+* Resultado.
+
+Las combinaciones deberán poder ser modificadas por el usuario según la norma adoptada.
+
+---
+
+# 13. MOTOR DE CÁLCULO ESTRUCTURAL
+
+El motor desarrollado en Rust deberá permitir:
+
+* Análisis de estructuras reticuladas.
+* Análisis de cerchas.
+* Análisis de barras.
+* Método matricial.
+* Equilibrio nodal.
+* Cálculo de reacciones.
+* Esfuerzos axiales.
+* Desplazamientos.
+* Fuerzas internas.
+* Combinaciones de carga.
+
+El diseño deberá permitir incorporar posteriormente:
+
+* Flexión.
+* Cortante.
+* Torsión.
+* Análisis de pórticos.
+* Análisis tridimensional.
+
+---
+
+# 14. COMPROBACIÓN DE ELEMENTOS
+
+Para cada elemento se deberá obtener:
+
+* Esfuerzo solicitante.
+* Resistencia disponible.
+* Relación demanda/capacidad.
+* Longitud.
+* Sección.
+* Propiedades.
+* Condición de apoyo.
+* Longitud efectiva.
+* Riesgo de pandeo.
+* Resultado.
+
+El programa deberá identificar visualmente:
+
+* Elementos dentro de los límites definidos.
+* Elementos que requieren revisión.
+* Elementos que no cumplen.
+
+El resultado deberá ser presentado como cálculo técnico, no como una simple advertencia gráfica.
+
+---
+
+# 15. PREDIMENSIONAMIENTO AUTOMÁTICO
+
+El usuario podrá solicitar:
+
+**“Proponer sección”**
+
+El programa analizará la biblioteca de perfiles disponibles y buscará perfiles que cumplan los criterios definidos.
+
+Criterios:
+
+* Resistencia.
+* Pandeo.
+* Peso.
+* Geometría.
+* Disponibilidad.
+* Longitud comercial.
+* Factor de seguridad.
+* Restricciones del proyecto.
+
+El sistema deberá mostrar las alternativas encontradas, sin modificar automáticamente el diseño definitivo sin autorización del usuario.
+
+---
+
+# 16. CORREAS
+
+Módulo específico para cálculo de correas.
+
+Tipos:
+
+* C.
+* Z.
+* U.
+* Tubulares.
+* Ángulos.
+* Perfiles personalizados.
+
+Cálculos:
+
+* Separación.
+* Luz.
+* Cargas tributarias.
+* Momento.
+* Cortante.
+* Deformación.
+* Peso.
+* Cantidad.
+
+---
+
+# 17. ARRIOSTRAMIENTOS
+
+El sistema deberá calcular y/o cuantificar:
+
+* Cruces de San Andrés.
+* Tirantes.
+* Diagonales.
+* Arriostramiento longitudinal.
+* Arriostramiento transversal.
+* Elementos de estabilidad.
+
+---
+
+# 18. APOYOS
+
+Configuración:
+
+* Articulado.
+* Rodillo.
+* Apoyo simple.
+* Apoyo personalizado.
+
+El sistema deberá representar gráficamente las condiciones de apoyo.
+
+---
+
+# 19. UNIONES
+
+Módulo preparado para cuantificar:
+
+* Soldaduras.
+* Pernos.
+* Tornillos.
+* Tuercas.
+* Arandelas.
+* Placas.
+* Cartelas.
+* Escuadras.
+* Anclajes.
+
+La primera versión podrá centrarse en cuantificación y representación, dejando comprobaciones avanzadas de uniones para una fase posterior.
+
+---
+
+# 20. SOLDADURA
+
+El usuario podrá especificar:
+
+* Tipo.
+* Longitud.
+* Tamaño.
+* Cantidad.
+* Tipo de unión.
+
+El programa calculará:
+
+* Longitud total.
+* Peso estimado.
+* Consumo aproximado.
+* Cantidad de cordones.
+
+---
+
+# 21. TORNILLERÍA
+
+Base de datos configurable:
+
+* Diámetro.
+* Longitud.
+* Calidad.
+* Tuerca.
+* Arandela.
+* Cantidad.
+
+El programa deberá generar automáticamente listados.
+
+---
+
+# 22. PLACAS Y CARTELAS
+
+Para cada elemento:
+
+* Dimensiones.
+* Espesor.
+* Material.
+* Cantidad.
+* Peso.
+* Área.
+
+El sistema deberá calcular el peso total de las placas.
+
+---
+
+# 23. CUANTIFICACIÓN AUTOMÁTICA
+
+Esta será una de las funciones principales del software.
+
+A partir del modelo estructural deberá generar:
+
+**Perfil → longitud → cantidad → peso → material**
+
+Ejemplo:
+
+Tubo 80×40×3 mm
+Longitud total = 146,80 m
+Peso unitario = X kg/m
+Peso total = X kg
+
+---
+
+# 24. DESPIECE
+
+El sistema deberá generar un despiece de fabricación.
+
+Cada pieza tendrá:
+
+* Código.
+* Tipo.
+* Perfil.
+* Longitud.
+* Cantidad.
+* Ángulo.
+* Peso.
+* Elemento al que pertenece.
+* Posición.
+* Observaciones.
+
+---
+
+# 25. OPTIMIZACIÓN DE CORTES
+
+Módulo para determinar la utilización de barras comerciales.
+
+Entrada:
+
+* Longitud comercial.
+* Piezas necesarias.
+* Pérdida mínima.
+* Ancho de corte.
+
+Salida:
+
+* Barras requeridas.
+* Cortes.
+* Desperdicio.
+* Porcentaje de aprovechamiento.
+
+Ejemplo:
+
+Barras comerciales de 6,00 m.
+
+El sistema deberá intentar distribuir las piezas para minimizar desperdicio.
+
+---
+
+# 26. CUANTIFICACIÓN DE CUBIERTA
+
+Deberá obtener:
+
+* Superficie inclinada.
+* Superficie real.
+* Número de láminas.
+* Longitudes.
+* Anchos útiles.
+* Solapes.
+* Tornillos.
+* Arandelas.
+* Remates.
+
+---
+
+# 27. CANALONES Y BAJANTES
+
+Cuando se active este módulo:
+
+* Longitud de canalón.
+* Número de bajantes.
+* Longitud de bajantes.
+* Accesorios.
+* Soportes.
+* Uniones.
+* Piezas especiales.
+
+---
+
+# 28. AISLAMIENTO
+
+Biblioteca para:
+
+* Lana mineral.
+* Lana de vidrio.
+* EPS.
+* XPS.
+* Poliuretano.
+* Panel sándwich.
+
+Cuantificación por:
+
+* m².
+* m³.
+* espesor.
+* longitud.
+* volumen.
+
+---
+
+# 29. IMPERMEABILIZACIÓN
+
+Sistema para cuantificar:
+
+* Membranas.
+* Láminas.
+* Selladores.
+* Cintas.
+* Solapes.
+* Fijaciones.
+
+---
+
+# 30. INSUMOS
+
+El sistema deberá contemplar consumibles:
+
+* Electrodos.
+* Alambre.
+* Gas.
+* Discos de corte.
+* Discos de desbaste.
+* Brocas.
+* Tornillos.
+* Pernos.
+* Anclajes.
+* Pintura.
+* Imprimación.
+* Diluyente.
+* Anticorrosivo.
+* Selladores.
+* Elementos de protección.
+
+Los consumos deberán ser configurables.
+
+---
+
+# 31. FACTORES DE DESPERDICIO
+
+Cada material podrá disponer de:
+
+* Porcentaje de desperdicio.
+* Pérdida por corte.
+* Pérdida por solape.
+* Pérdida por fabricación.
+
+Ejemplo:
+
+Acero calculado = 1.250 kg
+
+Desperdicio = 5 %
+
+Cantidad de adquisición:
+
+1.312,50 kg.
+
+---
+
+# 32. MODELO 2D
+
+El programa deberá incorporar un visor/dibujador técnico 2D.
+
+Funciones:
+
+* Zoom.
+* Pan.
+* Selección.
+* Medición.
+* Ejes.
+* Cotas.
+* Nodos.
+* Barras.
+* Apoyos.
+* Cargas.
+* Perfiles.
+* Etiquetas.
+
+---
+
+# 33. VISTA DE CERCHA
+
+Deberá permitir visualizar:
+
+* Geometría.
+* Nodos.
+* Barras.
+* Numeración.
+* Cargas.
+* Reacciones.
+* Esfuerzos.
+* Perfil asignado.
+
+---
+
+# 34. VISTA DE CUBIERTA
+
+Representación de:
+
+* Planta.
+* Elevaciones.
+* Secciones.
+* Cerchas.
+* Correas.
+* Arriostramientos.
+* Cubierta.
+* Canalones.
+
+---
+
+# 35. VISTA 3D
+
+Fase inicial:
+
+* Modelo 3D simplificado.
+* Estructura.
+* Cubierta.
+* Cerchas.
+* Correas.
+
+No se priorizará un motor gráfico pesado.
+
+Debe funcionar correctamente en equipos modestos.
+
+---
+
+# 36. PLANOS
+
+Generación de:
+
+* Planta.
+* Elevaciones.
+* Secciones.
+* Detalles.
+* Cerchas.
+* Despieces.
+* Cuadro de materiales.
+
+Exportación prevista:
+
+* PDF.
+* SVG.
+* DXF cuando sea técnicamente viable.
+
+---
+
+# 37. DETALLES CONSTRUCTIVOS
+
+Biblioteca parametrizable para:
+
+* Unión cercha-columna.
+* Unión correa-cercha.
+* Placa de apoyo.
+* Cartelas.
+* Cruces.
+* Cumbrera.
+* Alero.
+* Canalón.
+* Fijación de cubierta.
+
+---
+
+# 38. MEMORIA DE CÁLCULO
+
+El programa deberá generar automáticamente una memoria técnica que contenga:
+
+1. Datos del proyecto.
+2. Geometría.
+3. Materiales.
+4. Perfiles.
+5. Hipótesis.
+6. Cargas.
+7. Combinaciones.
+8. Modelo estructural.
+9. Reacciones.
+10. Esfuerzos.
+11. Desplazamientos.
+12. Comprobaciones.
+13. Cuantificación.
+14. Observaciones.
+15. Resultados.
+
+---
+
+# 39. LISTADO DE MATERIALES
+
+Debe producir automáticamente:
+
+| Código | Material | Sección | Longitud | Cantidad | Peso |
+| ------ | -------- | ------- | -------: | -------: | ---: |
+
+Y otros listados:
+
+* Cubierta.
+* Perfiles.
+* Tornillería.
+* Placas.
+* Soldadura.
+* Pintura.
+* Insumos.
+* Aislamiento.
+* Impermeabilización.
+
+---
+
+# 40. PRESUPUESTO
+
+El sistema podrá incorporar precios locales.
+
+Cada elemento podrá tener:
+
+* Precio unitario.
+* Unidad.
+* Cantidad.
+* Importe.
+
+El usuario podrá modificar precios manualmente.
+
+No deberá depender de Internet para obtener precios.
+
+---
+
+# 41. MONEDAS
+
+Sistema preparado para:
+
+* USD.
+* EUR.
+* CUP.
+* Otras monedas configurables.
+
+---
+
+# 42. BASE DE DATOS LOCAL
+
+Se utilizará una base de datos embebida.
+
+Preferentemente:
+
+**SQLite**
+
+No deberá requerir:
+
+* Servidor.
+* Internet.
+* Cuenta de usuario.
+* Servicio externo.
+
+---
+
+# 43. FORMATO DEL PROYECTO
+
+Cada proyecto deberá poder guardarse como un archivo propio.
+
+Ejemplo:
+
+`.cubierta`
+
+El archivo deberá contener:
+
+* Datos del proyecto.
+* Geometría.
+* Materiales.
+* Perfiles.
+* Cargas.
+* Configuración.
+* Resultados.
+* Cuantificaciones.
+
+Opcionalmente podrá utilizarse un contenedor ZIP estructurado internamente.
+
+---
+
+# 44. IMPORTACIÓN Y EXPORTACIÓN
+
+El programa deberá soportar:
+
+* CSV.
+* XLSX.
+* DXF.
+* PDF como referencia.
+* Formatos propios.
+
+La importación de DXF deberá permitir, como mínimo:
+
+* Líneas.
+* Polilíneas.
+* Capas.
+* Bloques básicos.
+
+---
+
+# 45. SISTEMA DE NORMAS
+
+No se deberá codificar una única norma directamente dentro del núcleo.
+
+Se deberá crear una arquitectura:
+
+**Motor estructural + módulo de norma**
+
+Esto permitirá incorporar posteriormente diferentes reglamentos.
+
+Cada norma deberá definir:
+
+* Cargas.
+* Combinaciones.
+* Factores.
+* Límites.
+* Materiales.
+* Comprobaciones.
+
+---
+
+# 46. SISTEMA DE UNIDADES
+
+Soporte para:
+
+* mm.
+* cm.
+* m.
+* kN.
+* N.
+* kg.
+* t.
+* kg/m.
+* kg/m².
+* kN/m.
+* kN/m².
+
+El usuario podrá seleccionar el sistema de unidades.
+
+---
+
+# 47. CONTROL DE ERRORES
+
+El programa deberá detectar:
+
+* Geometrías imposibles.
+* Barras de longitud cero.
+* Nodos desconectados.
+* Estructuras inestables.
+* Perfiles inexistentes.
+* Datos incompletos.
+* Cargas incompatibles.
+* Apoyos insuficientes.
+* Resultados fuera de rango.
+
+Los errores deberán explicar:
+
+**qué ocurrió + dónde ocurrió + cómo corregirlo.**
+
+---
+
+# 48. SISTEMA DE ADVERTENCIAS
+
+Ejemplos:
+
+“LA CERCHA PRESENTA INESTABILIDAD.”
+
+“EL ELEMENTO C-14 SUPERA EL CRITERIO DEFINIDO.”
+
+“LA SECCIÓN SELECCIONADA NO ESTÁ PRESENTE EN LA BIBLIOTECA.”
+
+“LA LONGITUD COMERCIAL SELECCIONADA GENERA UN DESPERDICIO SUPERIOR AL LÍMITE CONFIGURADO.”
+
+---
+
+# 49. INTERFAZ
+
+La interfaz deberá ser:
+
+* Profesional.
+* Técnica.
+* Clara.
+* Ligera.
+* Escalable.
+* Adaptada a equipos de pocos recursos.
+
+No se deberán utilizar animaciones pesadas.
+
+La interfaz deberá priorizar:
+
+**proyecto → geometría → cálculo → resultado → materiales → documentación.**
+
+---
+
+# 50. SISTEMA DE AYUDA
+
+Cada herramienta importante deberá incorporar:
+
+* Descripción.
+* Unidad.
+* Significado.
+* Valor recomendado cuando corresponda.
+* Advertencia.
+* Ejemplo.
+
+El usuario podrá consultar la explicación sin conexión.
+
+---
+
+# 51. ASISTENTE DE DISEÑO PARAMÉTRICO
+
+Sin utilizar inteligencia artificial.
+
+El asistente será un sistema determinista basado en reglas.
+
+Ejemplo:
+
+Usuario:
+
+Luz = 12 m
+Longitud = 20 m
+Cubierta = dos aguas
+Pendiente = 15 %
+
+El sistema propondrá una configuración inicial basada en:
+
+* Geometría.
+* Biblioteca.
+* Reglas.
+* Parámetros configurados.
+
+El usuario conservará el control del diseño.
+
+---
+
+# 52. MOTOR MATEMÁTICO
+
+Todo cálculo crítico deberá realizarse en Rust.
+
+Módulos:
+
+```text
+geometry
+loads
+materials
+profiles
+structural
+trusses
+rafters
+purlins
+connections
+quantities
+cutting
+reports
+units
+standards
+```
+
+---
+
+# 53. ARQUITECTURA RUST + TAURI
+
+Estructura conceptual:
+
+```text
+CUBIERTA PRO
+│
+├── Frontend Tauri
+│   ├── UI
+│   ├── Formularios
+│   ├── Visualizador 2D
+│   ├── Visualizador 3D
+│   └── Reportes
+│
+├── Backend Rust
+│   ├── Geometry Engine
+│   ├── Structural Engine
+│   ├── Load Engine
+│   ├── Profile Engine
+│   ├── Quantity Engine
+│   ├── Cutting Engine
+│   └── Report Engine
+│
+├── SQLite
+│
+└── Local Resources
+    ├── Normas
+    ├── Perfiles
+    ├── Materiales
+    └── Plantillas
+```
+
+---
+
+# 54. COMUNICACIÓN FRONTEND-BACKEND
+
+La comunicación entre Tauri y Rust deberá utilizar comandos controlados.
+
+Ejemplo conceptual:
+
+```text
+Frontend
+   ↓
+Tauri Command
+   ↓
+Rust
+   ↓
+Structural Engine
+   ↓
+Result
+   ↓
+Frontend
+```
+
+Los cálculos no deberán ejecutarse directamente en JavaScript cuando sean cálculos estructurales críticos.
+
+---
+
+# 55. SEGURIDAD
+
+El software deberá funcionar sin:
+
+* Telemetría obligatoria.
+* Servicios externos.
+* Validación online.
+* Licencia online.
+* API externa.
+
+La arquitectura podrá incorporar posteriormente un sistema de licencia local.
+
+---
+
+# 56. PORTABILIDAD
+
+La versión principal deberá aspirar a generar:
+
+```text
+CubiertaPro.exe
+```
+
+acompañada de los recursos necesarios.
+
+Se deberá evitar depender de instalaciones externas innecesarias.
+
+---
+
+# 57. COMPILACIÓN WINDOWS
+
+El proyecto deberá prepararse para generar:
+
+* `.exe`
+* instalador `.msi`
+* instalador `.exe`
+
+cuando sea compatible con la configuración final de Tauri.
+
+---
+
+# 58. COMPILACIÓN MEDIANTE WINE
+
+Se deberá investigar y preparar una ruta de compilación para generar la versión Windows desde Linux utilizando herramientas compatibles con:
+
+* Wine.
+* MinGW.
+* Rust target Windows.
+* Tauri.
+
+La estrategia deberá ser:
+
+```text
+Linux
+   ↓
+Rust
+   ↓
+Target Windows
+   ↓
+Tauri
+   ↓
+Windows EXE
+   ↓
+Wine
+   ↓
+Pruebas
+```
+
+Wine se utilizará principalmente como entorno de ejecución/prueba cuando sea necesario.
+
+La compilación cruzada deberá preferirse cuando sea más estable que intentar compilar directamente dentro de Wine.
+
+---
+
+# 59. SISTEMA DE BUILD
+
+El proyecto deberá incluir scripts para:
+
+```text
+build-windows
+build-linux
+test
+clean
+package
+```
+
+Cuando técnicamente sea posible:
+
+```text
+build-windows-wine
+```
+
+---
+
+# 60. PRUEBAS
+
+Se deberán desarrollar pruebas automatizadas para:
+
+* Geometría.
+* Conversión de unidades.
+* Cálculo de cargas.
+* Cálculo de cerchas.
+* Reacciones.
+* Esfuerzos.
+* Perfiles.
+* Cuantificación.
+* Despiece.
+* Optimización de cortes.
+* Exportación.
+
+---
+
+# 61. VALIDACIÓN DEL MOTOR ESTRUCTURAL
+
+Se deberán utilizar casos de prueba conocidos.
+
+Cada caso deberá tener:
+
+* Geometría.
+* Cargas.
+* Resultado esperado.
+* Resultado del programa.
+* Diferencia.
+* Tolerancia.
+
+No se considerará terminado el motor solamente porque produzca resultados numéricos; deberá poder compararse contra casos de referencia.
+
+---
+
+# 62. PRUEBAS DE REGRESIÓN
+
+Cada modificación del motor deberá ejecutar automáticamente las pruebas existentes.
+
+Una modificación no deberá alterar silenciosamente resultados previamente validados.
+
+---
+
+# 63. RENDIMIENTO
+
+El programa deberá estar optimizado para equipos modestos.
+
+Objetivo:
+
+* Bajo consumo de RAM.
+* Bajo consumo de CPU cuando no esté calculando.
+* Inicio rápido.
+* Sin procesos en segundo plano innecesarios.
+
+---
+
+# 64. ARQUITECTURA MODULAR
+
+El programa deberá poder crecer posteriormente mediante módulos:
+
+```text
+CUBIERTA PRO
+│
+├── Cerchas
+├── Correas
+├── Pórticos
+├── Cubiertas
+├── Cargas
+├── Materiales
+├── Uniones
+├── Cuantificación
+├── Presupuesto
+├── Planos
+├── DXF
+├── Reportes
+└── Normativas
+```
+
+---
+
+# 65. FASES DE DESARROLLO
+
+## FASE 1 — FUNDACIÓN
+
+* Crear proyecto Rust.
+* Configurar Tauri.
+* Configurar frontend.
+* SQLite.
+* Sistema de proyectos.
+* Sistema de unidades.
+* Arquitectura base.
+
+---
+
+## FASE 2 — GEOMETRÍA
+
+* Motor geométrico.
+* Cubierta a una agua.
+* Cubierta a dos aguas.
+* Cubierta a cuatro aguas.
+* Pendientes.
+* Voladizos.
+* Cerchas parametrizadas.
+
+---
+
+## FASE 3 — BIBLIOTECA ESTRUCTURAL
+
+* Materiales.
+* Perfiles.
+* Propiedades.
+* Biblioteca editable.
+* Perfiles personalizados.
+
+---
+
+## FASE 4 — MOTOR DE CÁLCULO
+
+* Nodos.
+* Barras.
+* Apoyos.
+* Cargas.
+* Matrices.
+* Reacciones.
+* Esfuerzos.
+* Desplazamientos.
+
+---
+
+## FASE 5 — CERCHAS
+
+* Pratt.
+* Warren.
+* Howe.
+* Fink.
+* W.
+* N.
+* Personalizadas.
+* Generación automática.
+
+---
+
+## FASE 6 — CORREAS Y ARRIOSTRAMIENTOS
+
+* Correas.
+* Arriostramientos.
+* Tirantes.
+* Cruces.
+* Estabilidad.
+
+---
+
+## FASE 7 — COMPROBACIÓN
+
+* Resistencia.
+* Pandeo.
+* Deformación.
+* Demanda/capacidad.
+* Selección de perfiles.
+
+---
+
+## FASE 8 — CUANTIFICACIÓN
+
+* Longitudes.
+* Pesos.
+* Cantidades.
+* Placas.
+* Tornillos.
+* Soldadura.
+* Pintura.
+* Consumibles.
+
+---
+
+## FASE 9 — OPTIMIZACIÓN
+
+* Barras comerciales.
+* Corte.
+* Desperdicio.
+* Aprovechamiento.
+
+---
+
+## FASE 10 — DOCUMENTACIÓN
+
+* Planos.
+* Esquemas.
+* Despieces.
+* Memoria.
+* Listados.
+
+---
+
+## FASE 11 — DXF
+
+* Importación.
+* Exportación.
+* Capas.
+* Geometría.
+* Intercambio CAD.
+
+---
+
+## FASE 12 — PRESUPUESTO
+
+* Precios.
+* Costos.
+* Materiales.
+* Mano de obra.
+* Equipos.
+* Insumos.
+
+---
+
+## FASE 13 — OPTIMIZACIÓN DEL SOFTWARE
+
+* Rendimiento.
+* RAM.
+* CPU.
+* Tiempo de cálculo.
+* Inicio.
+* Tamaño del ejecutable.
+
+---
+
+## FASE 14 — COMPILACIÓN WINDOWS
+
+* Build.
+* Instalador.
+* Portable.
+* Pruebas Windows.
+* Pruebas Wine cuando proceda.
+
+---
+
+## FASE 15 — VALIDACIÓN FINAL
+
+* Pruebas matemáticas.
+* Pruebas estructurales.
+* Pruebas de interfaz.
+* Pruebas de exportación.
+* Pruebas de cuantificación.
+* Pruebas de instalación.
+
+---
+
+# 66. ESTRUCTURA DEL CÓDIGO
+
+Se deberá evitar un proyecto monolítico.
+
+Estructura conceptual:
+
+```text
+src-tauri/
+│
+├── src/
+│   ├── main.rs
+│   ├── commands/
+│   ├── geometry/
+│   ├── structural/
+│   ├── trusses/
+│   ├── loads/
+│   ├── materials/
+│   ├── profiles/
+│   ├── purlins/
+│   ├── connections/
+│   ├── quantities/
+│   ├── cutting/
+│   ├── standards/
+│   ├── reports/
+│   ├── database/
+│   └── export/
+│
+└── migrations/
+```
+
+Frontend:
+
+```text
+src/
+├── components/
+├── views/
+├── dialogs/
+├── services/
+├── drawing/
+├── calculations/
+├── reports/
+├── styles/
+└── types/
+```
+
+---
+
+# 67. DATOS DEL PROYECTO
+
+Cada proyecto deberá almacenar:
+
+* Nombre.
+* Código.
+* Cliente.
+* Ubicación.
+* Diseñador.
+* Fecha.
+* Descripción.
+* Unidades.
+* Norma.
+* Material.
+* Geometría.
+* Cargas.
+* Cerchas.
+* Perfiles.
+* Resultados.
+* Cuantificación.
+* Presupuesto.
+
+---
+
+# 68. COPIAS DE SEGURIDAD
+
+El programa deberá permitir:
+
+* Guardar.
+* Guardar como.
+* Copia de seguridad.
+* Recuperación.
+* Historial de versiones básico.
+
+Todo localmente.
+
+---
+
+# 69. REGISTRO DE CÁLCULO
+
+Cada cálculo deberá poder quedar asociado a:
+
+* Fecha.
+* Usuario local.
+* Configuración.
+* Versión del motor.
+* Norma utilizada.
+* Resultado.
+
+Esto permitirá reproducir posteriormente un cálculo.
+
+---
+
+# 70. EXPORTACIÓN DE RESULTADOS
+
+Como mínimo:
+
+* PDF.
+* CSV.
+* XLSX.
+* DXF cuando corresponda.
+* Formato propio del proyecto.
+
+---
+
+# 71. INFORME DE MATERIALES
+
+El informe deberá generar automáticamente:
+
+### Estructura
+
+* Perfil.
+* Longitud.
+* Cantidad.
+* Peso.
+
+### Cubierta
+
+* Tipo.
+* Superficie.
+* Cantidad.
+* Accesorios.
+
+### Uniones
+
+* Pernos.
+* Tornillos.
+* Placas.
+* Soldadura.
+
+### Insumos
+
+* Electrodos.
+* Discos.
+* Pintura.
+* Anticorrosivo.
+* Consumibles.
+
+---
+
+# 72. INFORME DE FABRICACIÓN
+
+Deberá producir un listado semejante a:
+
+```text
+PIEZA C-001
+Perfil: Tubo 100x50x3
+Longitud: 5.840 mm
+Cantidad: 4
+Ángulo: X°
+Peso unitario: XX kg
+```
+
+Y así sucesivamente para toda la estructura.
+
+---
+
+# 73. INFORME DE COMPRA
+
+Transformará el diseño en una lista práctica de adquisición:
+
+```text
+Tubo 100x50x3 ........ 185,40 m
+Tubo 80x40x3 ......... 92,30 m
+Ángulo L50x50x5 ...... 64,00 m
+Chapa ................ 315,00 m²
+Tornillos ............ 1.240 ud
+Pernos ............... 180 ud
+Electrodos ........... XX kg
+Pintura .............. XX L
+```
+
+---
+
+# 74. CONFIGURACIÓN DE PRECIOS
+
+Los precios no deberán estar fijados permanentemente en el código.
+
+Se almacenarán en la base de datos.
+
+El usuario podrá crear:
+
+* Lista de precios.
+* Proveedor.
+* Fecha.
+* Moneda.
+* Unidad.
+* Precio.
+
+---
+
+# 75. FUNCIONAMIENTO SIN INTERNET
+
+El programa deberá poder:
+
+* Crear proyectos.
+* Calcular.
+* Dibujar.
+* Cuantificar.
+* Guardar.
+* Generar informes.
+* Exportar.
+
+sin conexión.
+
+---
+
+# 76. NO DEPENDER DE SERVICIOS CLOUD
+
+No se utilizarán como requisito:
+
+* APIs online.
+* Servidores externos.
+* Bases de datos remotas.
+* Servicios de autenticación externos.
+* Licencias online.
+* Servicios de IA.
+
+---
+
+# 77. RECUPERACIÓN ANTE ERRORES
+
+Si un cálculo falla, el programa deberá:
+
+1. Detectar la excepción.
+2. Evitar cerrar el programa completo.
+3. Guardar el proyecto.
+4. Informar del módulo afectado.
+5. Mostrar el motivo.
+6. Permitir volver al estado anterior.
+
+---
+
+# 78. SISTEMA DE LOG
+
+Registro local de:
+
+* Errores.
+* Cálculos.
+* Importaciones.
+* Exportaciones.
+* Fallos.
+* Acciones importantes.
+
+Con opción para exportar el log para diagnóstico.
+
+---
+
+# 79. DOCUMENTACIÓN DEL CÓDIGO
+
+Todo módulo crítico deberá estar documentado.
+
+Especialmente:
+
+* Fórmulas.
+* Algoritmos.
+* Convenciones.
+* Unidades.
+* Hipótesis.
+* Tolerancias.
+* Limitaciones.
+
+---
+
+# 80. LICENCIAMIENTO DEL SOFTWARE
+
+La arquitectura deberá permitir posteriormente:
+
+* Versión gratuita.
+* Versión profesional.
+* Licencia permanente.
+* Licencia por equipo.
+
+La primera versión podrá funcionar sin sistema de licencia si así se decide.
+
+---
+
+# 81. LIMITACIONES Y RESPONSABILIDAD TÉCNICA
+
+El programa deberá distinguir claramente entre:
+
+**predimensionamiento**, **cálculo**, **comprobación** y **documentación**.
+
+No deberá presentar un elemento como “apto” si existen datos incompletos o hipótesis no verificadas.
+
+El informe deberá mostrar las hipótesis y criterios utilizados.
+
+La responsabilidad del diseño estructural final corresponderá al profesional que revise y apruebe el proyecto.
+
+---
+
+# 82. CRITERIO DE FINALIZACIÓN
+
+El software será considerado funcionalmente terminado cuando pueda realizar el siguiente flujo completo:
+
+```text
+NUEVO PROYECTO
+       ↓
+DEFINIR CUBIERTA
+       ↓
+DEFINIR DIMENSIONES
+       ↓
+SELECCIONAR CERCHA
+       ↓
+GENERAR GEOMETRÍA
+       ↓
+DEFINIR MATERIAL
+       ↓
+DEFINIR PERFILES
+       ↓
+DEFINIR CARGAS
+       ↓
+CALCULAR
+       ↓
+COMPROBAR
+       ↓
+OPTIMIZAR PERFILES
+       ↓
+CALCULAR CORREAS
+       ↓
+CALCULAR ARRIOSTRAMIENTOS
+       ↓
+CUANTIFICAR
+       ↓
+OPTIMIZAR CORTES
+       ↓
+GENERAR DESPIECE
+       ↓
+GENERAR PLANOS
+       ↓
+GENERAR MEMORIA
+       ↓
+GENERAR LISTADO DE MATERIALES
+       ↓
+EXPORTAR
+```
+
+---
+
+# 83. ENTREGABLES
+
+El desarrollo deberá entregar:
+
+1. Código fuente Rust.
+2. Código fuente Tauri.
+3. Código frontend.
+4. Base de datos SQLite.
+5. Migraciones.
+6. Biblioteca inicial de perfiles.
+7. Biblioteca inicial de materiales.
+8. Biblioteca inicial de cerchas.
+9. Motor estructural.
+10. Motor geométrico.
+11. Motor de cuantificación.
+12. Motor de optimización de cortes.
+13. Sistema de reportes.
+14. Exportador.
+15. Sistema de pruebas.
+16. Documentación técnica.
+17. Manual de usuario.
+18. Scripts de compilación.
+19. Versión Windows.
+20. Instalador.
+21. Versión portable cuando sea viable.
+
+---
+
+# 84. PRIORIDAD DE DESARROLLO
+
+### PRIORIDAD CRÍTICA
+
+* Motor geométrico.
+* Motor estructural.
+* Cerchas.
+* Cargas.
+* Perfiles.
+* Comprobaciones.
+* Cuantificación.
+
+### PRIORIDAD ALTA
+
+* Correas.
+* Arriostramientos.
+* Despiece.
+* Optimización de cortes.
+* Reportes.
+* Planos.
+
+### PRIORIDAD MEDIA
+
+* DXF.
+* Presupuesto.
+* 3D.
+* Biblioteca avanzada.
+* Detalles constructivos.
+
+### PRIORIDAD FUTURA
+
+* Normativas adicionales.
+* Pórticos.
+* Uniones avanzadas.
+* Modelado 3D avanzado.
+* Sistemas de fabricantes.
+* Catálogos comerciales.
+
+---
+
+# 85. CONDICIÓN ESPECIAL DEL PROYECTO
+
+La programación deberá realizarse de forma que las fórmulas y criterios de cálculo no queden mezclados con la interfaz.
+
+Por tanto:
+
+**Rust = motor técnico**
+
+**Tauri = aplicación de escritorio**
+
+**Frontend = interfaz**
+
+**SQLite = almacenamiento**
+
+**DXF/SVG/PDF/XLSX = intercambio y documentación**
+
+Esta separación será obligatoria para permitir mantenimiento y ampliaciones futuras.
+
+---
+
+# 86. RESULTADO FINAL ESPERADO
+
+El producto final deberá convertirse en una herramienta especializada para el profesional de arquitectura, ingeniería y construcción que permita resolver una cubierta ligera desde la etapa inicial hasta la cuantificación y documentación.
+
+El concepto central será:
+
+**“DE LA GEOMETRÍA DE LA CUBIERTA AL LISTADO DE MATERIALES.”**
+
+El programa no se limitará a calcular una cercha aislada.
+
+Deberá comprender el sistema completo:
+
+**Cubierta → Cerchas → Correas → Arriostramientos → Uniones → Materiales → Insumos → Cortes → Cantidades → Documentación.**
+
+FIN DEL CONTRATO DE PROGRAMACIÓN
